@@ -12,30 +12,46 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+string[] people = { "Ben", "Rory", "Jamie" };
+
+
+List<MoistureReading> moistureReadings = new() { new MoistureReading(2303, 50), new MoistureReading(3304, 68) };
+
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapGet("/people", () =>
+    {
+        return people;
+    });
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapGet("/readings", () =>
+    {
+        List<int> readingsArray = new List<int>();
+
+        for (int i = 0; i < moistureReadings.Count; i++)
+        {
+            readingsArray.Add(moistureReadings[i].MoisturePercent);
+        }
+
+        return readingsArray;
+    });
+
+app.MapGet("/people/{id}", (int id) =>
+    {
+        return people[id];
+    });
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+class MoistureReading
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public int MoistureRaw;
+    public int MoisturePercent;
+    public DateTime time = DateTime.UtcNow;
+
+    public MoistureReading(int moistureRaw, int moisturePercent)
+    {
+        MoistureRaw = moistureRaw;
+        MoisturePercent = moisturePercent;
+    }
 }
