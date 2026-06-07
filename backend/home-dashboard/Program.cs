@@ -1,3 +1,6 @@
+using HomeDashboard.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,26 +17,11 @@ if (app.Environment.IsDevelopment())
 
 string[] people = { "Ben", "Rory", "Jamie" };
 
-
-List<MoistureReading> moistureReadings = new() { new MoistureReading(2303, 50), new MoistureReading(3304, 68) };
-
 app.UseHttpsRedirection();
 
 app.MapGet("/people", () =>
     {
         return people;
-    });
-
-app.MapGet("/readings", () =>
-    {
-        List<int> readingsArray = new List<int>();
-
-        for (int i = 0; i < moistureReadings.Count; i++)
-        {
-            readingsArray.Add(moistureReadings[i].MoisturePercent);
-        }
-
-        return readingsArray;
     });
 
 app.MapGet("/people/{id}", (int id) =>
@@ -42,16 +30,3 @@ app.MapGet("/people/{id}", (int id) =>
     });
 
 app.Run();
-
-class MoistureReading
-{
-    public int MoistureRaw;
-    public int MoisturePercent;
-    public DateTime time = DateTime.UtcNow;
-
-    public MoistureReading(int moistureRaw, int moisturePercent)
-    {
-        MoistureRaw = moistureRaw;
-        MoisturePercent = moisturePercent;
-    }
-}
