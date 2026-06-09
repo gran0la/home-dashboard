@@ -1,4 +1,4 @@
-class WaterEvent
+public class WaterEvent
 {
     public string Id { get; set; }
     public string PlantId { get; set; }

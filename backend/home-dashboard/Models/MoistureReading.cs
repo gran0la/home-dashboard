@@ -1,6 +1,6 @@
 namespace HomeDashboard.Models;
 
-class MoistureReading
+public class MoistureReading
 {
     public string Id { get; set; }
     public string PlantId { get; set; }
