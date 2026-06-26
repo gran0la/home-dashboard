@@ -18,6 +18,11 @@ public class ReadingsController : ControllerBase
     {
         var readings = await _db.MoistureReadings.ToListAsync();
 
+        if (readings == null)
+        {
+            return NotFound("No readings found");
+        }
+
         return Ok(readings);
     }
 
