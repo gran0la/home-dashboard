@@ -27,14 +27,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-string[] people = { "Ben", "Rory", "Jamie" };
 
 app.UseHttpsRedirection();
 
-app.MapGet("/people", () =>
-    {
-        return people;
-    });
 
 app.MapPost("/readings", async (MoistureReading reading, AppDbContext db) =>
 {
@@ -44,10 +39,5 @@ app.MapPost("/readings", async (MoistureReading reading, AppDbContext db) =>
 
     return Results.Created($"/reading/{reading.Id}", reading);
 });
-
-app.MapGet("/people/{id}", (int id) =>
-    {
-        return people[id];
-    });
 
 app.Run();
