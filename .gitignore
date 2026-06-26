@@ -1,0 +1,8 @@
+esp/include/secrets.h
+
+# .NET
+backend/bin/
+backend/obj/
+
+# PlatformIO
+esp/.pio/
