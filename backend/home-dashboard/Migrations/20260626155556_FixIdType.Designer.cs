@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace home_dashboard.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260626155556_FixIdType")]
+    partial class FixIdType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace home_dashboard.Migrations
                     b.ToTable("MoistureReadings");
                 });
 
-            modelBuilder.Entity("HomeDashboard.Models.Plant", b =>
+            modelBuilder.Entity("Plant", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -63,7 +66,7 @@ namespace home_dashboard.Migrations
 
             modelBuilder.Entity("HomeDashboard.Models.MoistureReading", b =>
                 {
-                    b.HasOne("HomeDashboard.Models.Plant", "Plant")
+                    b.HasOne("Plant", "Plant")
                         .WithMany()
                         .HasForeignKey("PlantId");
 
