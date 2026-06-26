@@ -7,5 +7,5 @@ public class MoistureReading
     public Plant? Plant { get; set; }
     public int MoistureRaw { get; set; }
     public int MoisturePercent { get; set; }
-    public DateTime time { get; set; }
+    public DateTime time { get; set; } = DateTime.UtcNow;
 }

@@ -18,11 +18,17 @@
 void connectWifi() {
   Serial.print("Connecting to WiFi");
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  while (WiFi.status() != WL_CONNECTED) {
+  int attempts = 0;
+  while (WiFi.status() != WL_CONNECTED && attempts < 20) {
     delay(500);
     Serial.print(".");
+    attempts++;
   }
-  Serial.println("\nWiFi connected: " + WiFi.localIP().toString());
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("\nWiFi FAILED to connect!");
+  } else {
+    Serial.println("\nWiFi connected: " + WiFi.localIP().toString());
+  }
 }
 
 void sendReading(int moisture) {
@@ -36,7 +42,6 @@ void sendReading(int moisture) {
   doc["plantId"]         = PLANT_ID;
   doc["moistureRaw"]     = moisture;
   doc["moisturePercent"] = map(moisture, 3300, 1295, 0, 100);
-  doc["time"]            = "2026-01-01T00:00:00"; // replace with NTP time or handle server-side
 
   String body;
   serializeJson(doc, body);
@@ -55,7 +60,6 @@ void sendWaterEvent(double durationSeconds) {
 
   JsonDocument doc;
   doc["plantId"]         = PLANT_ID;
-  doc["wateredAt"]       = "2026-01-01T00:00:00"; // same as above
   doc["durationSeconds"] = durationSeconds;
 
   String body;
@@ -102,5 +106,5 @@ void loop() {
     Serial.println("MOIST — no watering needed");
   }
 
-  delay(10000);
+  delay(300000); 
 }
