@@ -14,7 +14,17 @@ function App() {
       </div>
 
       <div id='right' className='flex-1 flex items-center justify-center'>
-        <div id='main-section' className='bg-slate-700/30 backdrop-blur-md w-7/8 h-7/8 rounded-3xl '></div>
+        <div id='main-section' className='bg-slate-700/30 backdrop-blur-md flex w-7/8 h-7/8 rounded-3xl p-3'>
+          <div id='left' className='w-2/3 rounded-tl-2xl rounded-bl-2xl h-full bg-red-100/20'></div>
+          <div id='right' className='flex-1 pl-3'>
+            <div id='box-container' className='flex w-full gap-5 justify-between'>
+              <div className='flex-1 h-20 rounded-lg bg-red-400'></div>
+              <div className='flex-1 h-20 rounded-lg bg-red-400'></div>
+              <div className='flex-1 h-20 rounded-lg bg-red-400'></div>
+              <div className='flex-1 h-20 rounded-lg bg-red-400'></div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
