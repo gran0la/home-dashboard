@@ -20,7 +20,20 @@ public class PlantsController : ControllerBase
 
         if (plants == null)
         {
-            return NotFound("No plant readings found");
+            return NotFound("No plants found");
+        }
+
+        return Ok(plants);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetByID(string id)
+    {
+        var plants = await _db.Plants.FindAsync(id);
+
+        if (plants == null)
+        {
+            return NotFound("No plants found with this ID");
         }
 
         return Ok(plants);
