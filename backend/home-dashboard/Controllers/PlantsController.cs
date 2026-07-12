@@ -26,6 +26,19 @@ public class PlantsController : ControllerBase
         return Ok(plants);
     }
 
+    [HttpGet("{id}/readings")]
+    public async Task<IActionResult> GetAllPlantReadings(String id)
+    {
+        var readings = await _db.MoistureReadings.Where(r => r.PlantId == id).ToListAsync();
+
+        if (readings == null)
+        {
+            return NotFound("No readings found for this ID");
+        }
+
+        return Ok(readings);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByID(string id)
     {
