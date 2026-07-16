@@ -8,12 +8,11 @@ function App() {
   const navOptions = ["Home", "Plants", "Settings"];
   const [selectedNav, setSelectedNav] = useState<string>("Home");
 
-
   return (
     <div id='app' className='w-full h-screen flex bg-[url(/fishies2highres.png)] bg-cover'>
 
       <div id='left-spacer' className='w-50 flex items-center justify-center'>
-        <div id='ios-style-wrapper' className='p-0.5 bg-gradient-to-b from-slate-100/70 via-black/30 to-slate-200/60 rounded-full'>
+        <div id='ios-style-wrapper' className='p-0.5 bg-gradient-to-b from-slate-100/70 via-slate-950/30 to-slate-200/60 rounded-full'>
           <div id='menu-bar' className='bg-slate-950/30 backdrop-blur-md rounded-full flex flex-col items-center p-2'>
             {
               navOptions.map(option => {
@@ -25,13 +24,15 @@ function App() {
       </div>
 
       <div id='middle' className='flex-1 flex items-center justify-center'>
-        <div id='main-section' className='bg-slate-200/20 backdrop-blur-md flex w-7/8 h-6/8 rounded-3xl'>
-          {
-            selectedNav == "Plants" && <Plants />
-          }
-          {
-            selectedNav == "Home" && <Home />
-          }
+        <div id='ios-style-wrapper' className='p-0.5 bg-gradient-to-b from-slate-100/20 via-slate-950/40 to-slate-200/10 rounded-3xl w-7/8 h-6/8 shadow-lg'>
+          <div id='main-section' className='bg-slate-200/20 backdrop-blur-md flex rounded-3xl h-full'>
+            {
+              selectedNav == "Plants" && <Plants />
+            }
+            {
+              selectedNav == "Home" && <Home />
+            }
+          </div>
         </div>
       </div>
 
